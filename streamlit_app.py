@@ -6,18 +6,18 @@ import matplotlib.pyplot as plt
 
 
 def input_section():
-    product_price_input = st.text_input("Ціна товару за одиницю", placeholder=148, value=148)
-    product_price_output = st.text_input("Ціна збуту товару за одиницю", placeholder=280, value=280)
-    lost_profit = st.text_input("Втрачена вигода від відсутності товару", placeholder=170, value=170)
-    product_quantity = st.text_input("Розмір закупівель (в шт. через пробіл)", placeholder='5 6 7 8 9 10 11', value='5 6 7 8 9 10 11').split()
-    probabilities = st.text_input("Ймовірності попиту (від 0 до 1 через пробіл)", placeholder='0.1 0.1 0.2 0.2 0.2 0.1 0.1', value='0.1 0.1 0.2 0.2 0.2 0.1 0.1').split()
+    product_price_input = st.text_input("Ціна товару за одиницю", placeholder=148, value=125)
+    product_price_output = st.text_input("Ціна збуту товару за одиницю", placeholder=280, value=210)
+    lost_profit = st.text_input("Втрачена вигода від відсутності товару", placeholder=170, value=190)
+    product_quantity = st.text_input("Розмір закупівель (в шт. через пробіл)", placeholder='5 6 7 8 9 10 11', value='4 5 6 7 8 9 10').split()
+    probabilities = st.text_input("Ймовірності попиту (від 0 до 1 через пробіл)", placeholder='0.1 0.1 0.2 0.2 0.2 0.1 0.1', value='0.1 0.15 0.2 0.2 0.2 0.1 0.05').split()
 
     return product_price_input, product_price_output, lost_profit, product_quantity, probabilities
 
 
 def input_lost_profit_range():
-    start_lost_profit = st.number_input("Початкове значення втраченої вигоди", value=0)
-    end_lost_profit = st.number_input("Кінцеве значення втраченої вигоди", value=200)
+    start_lost_profit = st.number_input("Початкове значення втраченої вигоди", value=120)
+    end_lost_profit = st.number_input("Кінцеве значення втраченої вигоди", value=290)
     step_lost_profit = st.number_input("Крок втраченої вигоди", value=5)
 
     return start_lost_profit, end_lost_profit, step_lost_profit
