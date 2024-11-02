@@ -84,6 +84,17 @@ def build_progresion_plot(product_price_input, product_price_output, product_qua
     st.line_chart(mean_values_df)
 
 
+def get_max_profit(matrix_df, probabilities):
+    len_of_matrix = len(probabilities)
+    max_profit = 0
+    for i in range(len_of_matrix):
+        max_profit += matrix_df.iloc[i, i] * probabilities[i]
+
+    return max_profit
+
+
+
+
 def main():
     st.title('Оптимізація закупівель')
 
@@ -105,13 +116,23 @@ def main():
     best_optimized_index = calculate_optimal_strategy(matrix_df)
 
     st.dataframe(probabilities_df.T)
-    st.dataframe(matrix_df)
-    st.success(f"Найкращий оптимізований варіант: **{best_optimized_index }** із значенням **{matrix_df.loc[best_optimized_index, 'mean']}**")
+    matrix_display_df = matrix_df.copy()
+    matrix_display_df = matrix_display_df.applymap(lambda x: str(x).replace(',', ' '))
+    st.dataframe(matrix_display_df)
+    st.success(f"Найкращий оптимізований варіант: **{best_optimized_index}** із значенням **{matrix_df.loc[best_optimized_index, 'mean']}**")
 
     st.subheader('Графік залежності середнього значення від втраченої вигоди')
     start_lost_profit, end_lost_profit, step_lost_profit = input_lost_profit_range()
     lost_profit_range = np.arange(start_lost_profit, end_lost_profit, step_lost_profit)
     build_progresion_plot(product_price_input, product_price_output, product_quantity, probabilities, lost_profit_range)
+
+    st.subheader('Максимальний прибуток')
+    max_profit = get_max_profit(matrix_df, probabilities)
+    st.success(f"Максимальний прибуток: **{max_profit}**")
+
+    st.subheader('Втрати комерсанта через недостачу інформації')
+    іnformation_loss = max_profit - matrix_df.loc[best_optimized_index, 'mean']
+    st.success(f"Втрати комерсанта через недостачу інформації: **{іnformation_loss}**")
 
 
 if __name__ == '__main__':
